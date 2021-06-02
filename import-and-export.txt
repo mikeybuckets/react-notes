@@ -1,0 +1,77 @@
+https://www.codecademy.com/learn/paths/build-web-apps-with-react/tracks/react-components-interacting/modules/components-and-props/cheatsheet
+
+export
+Alright! You’ve learned how to use import to grab a variable from a file other than the file that is currently executing.
+
+When you import a variable from a file that is not the current file, then an import statement isn’t quite enough. You also need an export statement, written in the other file, exporting the variable that you hope to grab.
+
+export comes from ES6’s module system, just like import does. export and import are meant to be used together, and you rarely see one without the other.
+
+There are a few different ways to use export. In this course, we will be using a style called “named exports.” Here’s how named exports works:
+
+In one file, place the keyword export immediately before something that you want to export. That something can be any top-level var, let, const, function, or class:
+
+Select NavBar.js.
+
+On line 3, add the word export before the word class. This will export the class NavBar.
+
+// NavBar.js
+
+import React from 'react';
+
+export class NavBar extends React.Component {
+  render() {
+    const pages = ['tools', 'discuss', 'docs', 'help'];
+    const navLinks = pages.map(page => {
+      return (
+        <a href={'/' + page}>
+          {page}
+        </a>
+      )
+    });
+
+    return <nav>{navLinks}</nav>;
+  }
+}
+
+// ProfilePage.js
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { NavBar } from './NavBar';
+
+
+class ProfilePage extends React.Component {
+  render() {
+    return (
+      <div>
+        <NavBar />
+        <h1>All About Me!</h1>
+        <p>I like movies and blah blah blah blah blah</p>
+        <img src="https://content.codecademy.com/courses/React/react_photo-monkeyselfie.jpg" />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<ProfilePage />, document.getElementById('app'));
+
+
+// index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="./styles.css">
+	<title>Learn ReactJS</title>
+</head>
+
+<body>
+  <main id="app">
+  </main>
+	<script src="https://content.codecademy.com/courses/React/react-course-bundle.min.js"></script>
+  <script src="/ProfilePage.compiled.js"></script>
+</body>
+
+</html>
