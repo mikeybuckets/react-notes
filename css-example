@@ -1,5 +1,9 @@
 https://css-tricks.com/react-code-style-guide/
 
+https://css-tricks.com/almanac/properties/i/image-rendering/
+
+
+
 html, body {
   margin: 0;
   height: 100%;
