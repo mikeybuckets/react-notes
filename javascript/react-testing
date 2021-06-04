@@ -1,0 +1,131 @@
+https://www.codecademy.com/courses/learn-mocha-tdd/lessons/tdd-with-mocha/exercises/introduction
+
+*** Refractoring Course on codeacademy ^^^
+
+
+
+
+Feature Test I: Assert
+The last thing our test needs is an assert statement to verify that the behavior we expect is equal to the actual behavior of our code.
+
+We want to make sure our app is in an empty state.
+
+We can write a test for this behavior by deciding that poems will be listed in an HTML element with an id attribute set to poems. Then, write an assert statement to verify that the element with the ID poems is empty.
+We can do this using the Chai assert.equal method, which evaluates if the two arguments are equal.
+
+In the case of our poetry app, the assert statement would look like this:
+
+assert.equal(browser.getText('#poems'), '')
+
+ecause we will render the poetry onto the page as text, we can evaluate the contents of the HTML element as a string.
+
+The .getText method, from WebdriverI/O, gets the text content from the selected DOM element.
+
+Here we are using browser.getText() to evaluate if the text in the element with the ID poems is equal to an empty string.
+
+Our final code for this feature test would look like this:
+
+describe('User visits root', () => {
+  describe('without existing poems', () => {
+    it('page starts blank', () => {
+      browser.url('/');
+ 
+      assert.equal(browser.getText('#poems'), '');
+    });
+  });
+});
+
+
+Feature Test II: Setup
+Now that we are in the green we should take a moment to consider refactoring our code.
+
+Our code is pretty basic and succinct. We won’t refactor it but will take a moment to consider our current code implementation.
+
+For more on the refactor phase, you can try the Codecademy Learn Test Driven Development With Mocha Course.
+
+Feature Test II
+Returning to our poetry app demo, we want to write a test to check if the application saves the title and text of a user’s poem when they press the submit button.
+
+The functionality we want to test is:
+
+The user enters text into a text input element (the poem)
+The user enters text into a second text input element (the title of the poem)
+The user presses a submit button
+Adding the describe and it blocks for this second test would look like this:
+
+  describe('demo poetry web app', () => { 
+    it('saves the user poem and title', () => {
+ 
+    });
+  });
+ 
+ 
+Next, we want to write the setup, exercise, and verification phases of our test.
+
+In the setup phase for this test, we create variables to represent a user’s input to the title and poem fields on the home page.
+
+     const title = 'Words Birth Worlds';
+     const poem = 'Our words are marvelous weapons with which we could behead the sun';
+The second test would now look like this:
+
+  describe('demo poetry web app', () => { 
+    it('saves the user poem and title', () => {
+      const title = 'Words Birth Worlds';
+      const poem = 'Our words are marvelous weapons with which we could behead the sun';
+    });
+  });
+ 
+ 
+Instructions
+1.
+Go to your test suite for the message app in the user-visits-root-test.js file. Notice that we have added the describe and it blocks for your second test. Inside those blocks:
+
+Create a const variable named message to hold the expected value of the message input, and set it equal to a string with the value:
+
+feature tests often hit every level of the TDD Testing Pyramid
+
+Below message, create a const variable named author to hold the expected value of the author input, and set it equal to username.
+
+Feature Test II: Verify
+Now that we have programmed the behavior we want to test in the exercise phase, we will write the verification phase of our test. We will compare the actual results of exercising the code with the expected results.
+
+In the case of our poetry app, we want to verify that once a user submits a poem, the section of the app’s webpage that we have decided will display the poems includes that poem.
+
+We have created that element already to make our first feature test pass. It is the following line of code in our index.html file:
+
+<section id="poems">
+</section>
+To add an assert statement to evaluate the behavior of our feature, we will use the browser variable, and .getText() to return the text contents of the element, with the id poem.
+
+The Chai Assertion Library allows us to use the .include method to check if the string that is returned from .getText() includes the substrings of the title and poem that the user has submitted:
+
+assert.include(browser.getText('#poems'), title);
+assert.include(browser.getText('#poems'), poem);
+In both assert statements the first argument we pass to .include() is the function we created above it.
+
+The .include() method works like this:
+
+assert.include(haystack, needle)
+The full second test would now look like this:
+
+const {assert} = require('chai');
+ 
+describe('User visits root', () => {
+ 
+  describe('demo poetry web app', () => { 
+    it('saves the user poem and title', () => {
+      // Setup
+      const title = 'Words Birth Worlds';
+      const poem = 'Our words are marvelous weapons with which we could behead the sun;
+     // Exercise
+      browser.url('/');
+      browser.setValue('input[id=title]', title);
+      browser.setValue('textarea[id=poem]', poem);
+      browser.click('input[type=submit]');
+      // Verify
+      assert.include(browser.getText('#poems'), title);
+      assert.include(browser.getText('#poems'), poem);
+    });
+  });
+});
+ 
